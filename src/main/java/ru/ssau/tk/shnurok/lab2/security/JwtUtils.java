@@ -28,10 +28,18 @@ public class JwtUtils {
                 .compact();
     }
 
-    public String getUsernameFromJwtToken(String token) {
-        return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
-    }
 
+    public String getUsernameFromJwtToken(String token) {
+        // Убедитесь, что ваш секретный ключ совпадает с тем, который использовался для подписи токена
+        String secretKey = "your-secret-key"; // Замените на ваш секретный ключ
+
+        Claims claims = Jwts.parser()
+                .setSigningKey(secretKey)
+                .parseClaimsJws(token)
+                .getBody();
+
+        return claims.getSubject(); // Предполагается, что имя пользователя - это subject токена
+    }
     public boolean validateJwtToken(String token) {
         try {
             Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token);
