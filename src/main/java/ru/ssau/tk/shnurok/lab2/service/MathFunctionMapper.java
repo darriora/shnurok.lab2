@@ -12,7 +12,7 @@ public class MathFunctionMapper {
 
         MathFunctionDTO dto = new MathFunctionDTO();
         dto.setId(entity.getId());
-        dto.setFunctionName(entity.getFunctionName());
+        dto.setFunctionName(entity.getMathFunctionName());
         dto.setCount(entity.getCount());
         dto.setXFrom(entity.getXFrom() != null ? entity.getXFrom() : 0.0);
         dto.setXTo(entity.getXTo() != null ? entity.getXTo() : 0.0);
@@ -27,7 +27,7 @@ public class MathFunctionMapper {
 
         MathFunctionEntity entity = new MathFunctionEntity();
         entity.setId(dto.getId());
-        entity.setFunctionName(dto.getFunctionName());
+        entity.setMathFunctionName(dto.getFunctionName());
         entity.setCount(dto.getCount());
         entity.setXFrom(dto.getXFrom());
         entity.setXTo(dto.getXTo());

@@ -22,7 +22,7 @@ public class MathFunctionEntity {
 
     @Column(name = "c_function_name")
     @NotNull
-    private String functionName;
+    private String mathFunctionName;
 
     @Column(name = "c_count")
     private int count;
