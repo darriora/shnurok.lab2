@@ -16,4 +16,5 @@ public class MathFunctionDTO {
     private double xFrom;
     private double xTo;
     private List<PointDTO> points;
+
 }

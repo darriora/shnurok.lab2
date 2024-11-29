@@ -1,39 +1,46 @@
 package ru.ssau.tk.shnurok.lab2.repository;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import ru.ssau.tk.shnurok.lab2.entity.MathFunctionEntity;
 
-import java.util.Collections;
+//import javax.transaction.Transactional;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
+@DataJpaTest
 class MathFunctionRepositoryTest {
 
-    @Mock
+    @Autowired
     private MathFunctionRepository mathFunctionRepository;
 
-    private MathFunctionEntity functionEntity;
-
-    @BeforeEach
-    public void setUp() {
-        MockitoAnnotations.openMocks(this);
-        functionEntity = new MathFunctionEntity(1, "Example", 2, 0.0, 10.0, null);
-    }
-
     @Test
-    public void testfindByFunctionName() {
-        when(mathFunctionRepository.findByFunctionName("Example")).thenReturn(Collections.singletonList(functionEntity));
+    //@Transactional
+    public void testFindByMathFunctionName() {
+        // Arrange
+        MathFunctionEntity functionEntity1 = new MathFunctionEntity();
+        functionEntity1.setMathFunctionName("Test Function");
+        functionEntity1.setCount(5);
+        functionEntity1.setXFrom(0.0);
+        functionEntity1.setXTo(10.0);
+        mathFunctionRepository.save(functionEntity1);
 
-        List<MathFunctionEntity> functions = mathFunctionRepository.findByFunctionName("Example");
+        MathFunctionEntity functionEntity2 = new MathFunctionEntity();
+        functionEntity2.setMathFunctionName("Another Function");
+        functionEntity2.setCount(3);
+        functionEntity2.setXFrom(1.0);
+        functionEntity2.setXTo(5.0);
+        mathFunctionRepository.save(functionEntity2);
 
-        assertEquals(1, functions.size());
-        assertEquals("Example", functions.get(0).getFunctionName());
-        verify(mathFunctionRepository, times(1)).findByFunctionName("Example");
+        // Act
+        List<MathFunctionEntity> foundEntities = mathFunctionRepository.findByMathFunctionName("Test Function");
+
+        // Assert
+        assertEquals(1, foundEntities.size());
+        assertEquals("Test Function", foundEntities.get(0).getMathFunctionName());
     }
-
 }

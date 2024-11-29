@@ -6,32 +6,53 @@ import ru.ssau.tk.shnurok.lab2.entity.MathFunctionEntity;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class MathFunctionMapperTest {
+public class MathFunctionMapperTest {
 
     @Test
-    void testFunctionEntityToDTO() {
-        MathFunctionEntity entity = new MathFunctionEntity(1, "Example", 10, 0.0, 10.0, null);
+    public void testFunctionEntityToDTO_Null() {
+        assertNull(MathFunctionMapper.functionEntityToDTO(null));
+    }
+
+    @Test
+    public void testFunctionEntityToDTO_ValidEntity() {
+        MathFunctionEntity entity = new MathFunctionEntity();
+        entity.setId(1);
+        entity.setMathFunctionName("example_function");
+        entity.setCount(10);
+        entity.setXFrom(0.0);
+        entity.setXTo(10.0);
+
         MathFunctionDTO dto = MathFunctionMapper.functionEntityToDTO(entity);
 
         assertNotNull(dto);
-        assertEquals(entity.getId(), dto.getId());
-        assertEquals(entity.getFunctionName(), dto.getFunctionName());
-
-        dto = null;
-        assertNull(dto);
+        assertEquals(1, dto.getId());
+        assertEquals("example_function", dto.getFunctionName());
+        assertEquals(10, dto.getCount());
+        assertEquals(0.0, dto.getXFrom());
+        assertEquals(10.0, dto.getXTo());
     }
 
     @Test
-    void testFunctionDTOToFunctionEntity() {
-        MathFunctionDTO dto = new MathFunctionDTO(1, "Example", 10, 0.0, 10.0);
+    public void testFunctionDTOToFunctionEntity_Null() {
+        assertNull(MathFunctionMapper.functionDTOToFunctionEntity(null));
+    }
+
+    @Test
+    public void testFunctionDTOToFunctionEntity_ValidDTO() {
+        MathFunctionDTO dto = new MathFunctionDTO();
+        dto.setId(1);
+        dto.setFunctionName("example_function");
+        dto.setCount(10);
+        dto.setXFrom(0.0);
+        dto.setXTo(10.0);
+
         MathFunctionEntity entity = MathFunctionMapper.functionDTOToFunctionEntity(dto);
 
         assertNotNull(entity);
-        assertEquals(dto.getId(), entity.getId());
-        assertEquals(dto.getFunctionName(), entity.getFunctionName());
-
-        entity = null;
-        assertNull(entity);
+        assertEquals(1, entity.getId());
+        assertEquals("example_function", entity.getMathFunctionName());
+        assertEquals(10, entity.getCount());
+        assertEquals(0.0, entity.getXFrom());
+        assertEquals(10.0, entity.getXTo());
     }
-
 }

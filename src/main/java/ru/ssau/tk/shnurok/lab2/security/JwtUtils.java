@@ -1,6 +1,7 @@
 package ru.ssau.tk.shnurok.lab2.security;
 
 import io.jsonwebtoken.*;
+import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,10 +14,10 @@ import java.util.Date;
 public class JwtUtils {
     private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
 
-    @Value("${jwt.secret}")
+    @Value("secret")
     private String jwtSecret;
 
-    @Value("${jwt.expirationMs}")
+    @Value("86400000")
     private int jwtExpirationMs;
 
     public String generateJwtToken(UserDetails userDetails) {
@@ -57,4 +58,11 @@ public class JwtUtils {
         }
         return false;
     }
+
+    @PostConstruct
+    public void init() {
+        logger.info("JWT Secret: {}", jwtSecret);
+        logger.info("JWT Expiration: {}", jwtExpirationMs);
+    }
+
 }

@@ -16,7 +16,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-class MathFunctionServiceTest {
+public class MathFunctionServiceTest {
 
     @Mock
     private MathFunctionRepository mathFunctionRepository;
@@ -25,62 +25,78 @@ class MathFunctionServiceTest {
     private MathFunctionService mathFunctionService;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         MockitoAnnotations.openMocks(this);
     }
 
     @Test
-    void testGetByFunctionType() {
-        MathFunctionEntity entity = new MathFunctionEntity(1, "example", 10, 0.0, 10.0, null);
-        when(mathFunctionRepository.findByFunctionName("example")).thenReturn(Arrays.asList(entity));
+    public void testFindAllFunctions() {
+        MathFunctionEntity entity = new MathFunctionEntity();
+        entity.setId(1);
+        entity.setMathFunctionName("example_function");
+        entity.setCount(10);
+        entity.setXFrom(0.0);
+        entity.setXTo(10.0);
 
-        List<MathFunctionDTO> dtos = mathFunctionService.findAllFunctions("example");
+        when(mathFunctionRepository.findByMathFunctionName("example_function"))
+                .thenReturn(Arrays.asList(entity));
 
-        assertNotNull(dtos);
-        assertEquals(1, dtos.size());
-        assertEquals(entity.getFunctionName(), dtos.get(0).getFunctionName());
+        List<MathFunctionDTO> result = mathFunctionService.findAllFunctions("example_function");
+
+        assertEquals(1, result.size());
+        assertEquals("example_function", result.get(0).getFunctionName());
     }
 
     @Test
-    void testCreate() {
-        MathFunctionDTO dto = new MathFunctionDTO(1, "example", 10, 0.0, 10.0);
-        MathFunctionEntity entity = new MathFunctionEntity(1, "example", 10, 0.0, 10.0, null);
-        when(mathFunctionRepository.save(any())).thenReturn(entity);
+    public void testCreate() {
+        MathFunctionDTO dto = new MathFunctionDTO();
+        dto.setFunctionName("new_function");
+        dto.setCount(5);
+        dto.setXFrom(1.0);
+        dto.setXTo(5.0);
 
-        MathFunctionDTO createdDto = mathFunctionService.create(dto);
+        MathFunctionEntity entity = MathFunctionMapper.functionDTOToFunctionEntity(dto);
+        when(mathFunctionRepository.save(any(MathFunctionEntity.class))).thenReturn(entity);
 
-        assertNotNull(createdDto);
-        assertEquals(dto.getFunctionName(), createdDto.getFunctionName());
-        verify(mathFunctionRepository).save(any());
+        MathFunctionDTO result = mathFunctionService.create(dto);
+
+        assertNotNull(result);
+        assertEquals("new_function", result.getFunctionName());
     }
 
     @Test
-    void testRead() {
-        MathFunctionEntity entity = new MathFunctionEntity(1, "example", 10, 0.0, 10.0, null);
+    public void testRead() {
+        MathFunctionEntity entity = new MathFunctionEntity();
+        entity.setId(1);
+        entity.setMathFunctionName("example_function");
+
         when(mathFunctionRepository.findById(1)).thenReturn(Optional.of(entity));
 
-        MathFunctionDTO dto = mathFunctionService.read(1);
+        MathFunctionDTO result = mathFunctionService.read(1);
 
-        assertNotNull(dto);
-        assertEquals(entity.getFunctionName(), dto.getFunctionName());
+        assertNotNull(result);
+        assertEquals("example_function", result.getFunctionName());
     }
 
     @Test
-    void testUpdate() {
-        MathFunctionDTO dto = new MathFunctionDTO(1, "example", 10, 0.0, 10.0);
-        MathFunctionEntity entity = new MathFunctionEntity(1, "example", 10, 0.0, 10.0, null);
-        when(mathFunctionRepository.save(any())).thenReturn(entity);
+    public void testUpdate() {
+        MathFunctionDTO dto = new MathFunctionDTO();
+        dto.setId(1);
+        dto.setFunctionName("updated_function");
 
-        MathFunctionDTO updatedDto = mathFunctionService.update(dto);
+        MathFunctionEntity entity = MathFunctionMapper.functionDTOToFunctionEntity(dto);
+        when(mathFunctionRepository.save(any(MathFunctionEntity.class))).thenReturn(entity);
 
-        assertNotNull(updatedDto);
-        assertEquals(dto.getFunctionName(), updatedDto.getFunctionName());
-        verify(mathFunctionRepository).save(any());
+        MathFunctionDTO result = mathFunctionService.update(dto);
+
+        assertNotNull(result);
+        assertEquals("updated_function", result.getFunctionName());
     }
 
     @Test
-    void testDelete() {
-        mathFunctionService.delete(1);
-        verify(mathFunctionRepository).deleteById(1);
+    public void testDelete() {
+        int id = 1;
+        mathFunctionService.delete(id);
+        verify(mathFunctionRepository, times(1)).deleteById(id);
     }
 }
