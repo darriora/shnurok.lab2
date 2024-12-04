@@ -1,46 +1,57 @@
 package ru.ssau.tk.shnurok.lab2.repository;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.annotation.Rollback;
 import ru.ssau.tk.shnurok.lab2.entity.MathFunctionEntity;
 
-//import javax.transaction.Transactional;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
-class MathFunctionRepositoryTest {
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.ANY) // Используем встраиваемую базу данных
+public class MathFunctionRepositoryTest {
 
     @Autowired
     private MathFunctionRepository mathFunctionRepository;
 
+    @BeforeEach
+    public void setUp() {
+        // Очистка базы данных перед каждым тестом
+        mathFunctionRepository.deleteAll();
+    }
+
     @Test
-    //@Transactional
+    @Rollback
     public void testFindByMathFunctionName() {
-        // Arrange
-        MathFunctionEntity functionEntity1 = new MathFunctionEntity();
-        functionEntity1.setMathFunctionName("Test Function");
-        functionEntity1.setCount(5);
-        functionEntity1.setXFrom(0.0);
-        functionEntity1.setXTo(10.0);
-        mathFunctionRepository.save(functionEntity1);
+        // Создание и сохранение сущности
+        MathFunctionEntity function1 = new MathFunctionEntity();
+        function1.setMathFunctionName("Linear");
+        mathFunctionRepository.save(function1);
 
-        MathFunctionEntity functionEntity2 = new MathFunctionEntity();
-        functionEntity2.setMathFunctionName("Another Function");
-        functionEntity2.setCount(3);
-        functionEntity2.setXFrom(1.0);
-        functionEntity2.setXTo(5.0);
-        mathFunctionRepository.save(functionEntity2);
+        MathFunctionEntity function2 = new MathFunctionEntity();
+        function2.setMathFunctionName("Quadratic");
+        mathFunctionRepository.save(function2);
 
-        // Act
-        List<MathFunctionEntity> foundEntities = mathFunctionRepository.findByMathFunctionName("Test Function");
+        // Поиск по имени функции
+        List<MathFunctionEntity> foundFunctions = mathFunctionRepository.findByMathFunctionName("Linear");
 
-        // Assert
-        assertEquals(1, foundEntities.size());
-        assertEquals("Test Function", foundEntities.get(0).getMathFunctionName());
+        // Проверка, что функция найдена
+        assertThat(foundFunctions).hasSize(1);
+        assertThat(foundFunctions.get(0).getMathFunctionName()).isEqualTo("Linear");
+    }
+
+    @Test
+    @Rollback
+    public void testFindByMathFunctionName_NoResult() {
+        // Поиск по имени функции, которая не существует
+        List<MathFunctionEntity> foundFunctions = mathFunctionRepository.findByMathFunctionName("NonExistent");
+
+        // Проверка, что результат пустой
+        assertThat(foundFunctions).isEmpty();
     }
 }

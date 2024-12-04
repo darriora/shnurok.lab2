@@ -24,6 +24,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 class AuthControllerTest {
+
     @InjectMocks
     private AuthController authController;
 
@@ -69,7 +70,7 @@ class AuthControllerTest {
     }
 
     @Test
-    public void testRegisterUser() {
+    public void testRegisterUser_Success() {
         // Arrange
         User user = new User();
         user.setUsername("newuser");
@@ -83,18 +84,36 @@ class AuthControllerTest {
 
         // Assert
         assertEquals(ResponseEntity.ok("User registered successfully!"), response);
-        verify(userRepository).save(user);
+        verify(userRepository).save(any(User.class));
     }
 
     @Test
-    public void testDeleteUser() {
+    public void testRegisterUser_UsernameTaken() {
         // Arrange
-        UserDetails currentUser = mock(UserDetails.class);
-        when(currentUser.getUsername()).thenReturn("user");
-        when(userRepository.findByUsername("user")).thenReturn(Optional.of(new User()));
+        User user = new User();
+        user.setUsername("existinguser");
+        user.setPassword("password");
+
+        when(userRepository.findByUsername("existinguser")).thenReturn(Optional.of(new User()));
 
         // Act
-        ResponseEntity<?> response = authController.deleteUser("user", currentUser);
+        ResponseEntity<?> response = authController.registerUser(user);
+
+        // Assert
+        assertEquals(ResponseEntity.badRequest().body("Error: Username is already taken!"), response);
+        verify(userRepository, never()).save(any(User.class));
+    }
+
+    @Test
+    public void testDeleteUser_Success() {
+        // Arrange
+        String username = "user";
+        UserDetails currentUser = mock(UserDetails.class);
+        when(currentUser.getUsername()).thenReturn(username);
+        when(userRepository.findByUsername(username)).thenReturn(Optional.of(new User()));
+
+        // Act
+        ResponseEntity<?> response = authController.deleteUser(username, currentUser);
 
         // Assert
         assertEquals(ResponseEntity.ok("User deleted successfully!"), response);
@@ -102,16 +121,33 @@ class AuthControllerTest {
     }
 
     @Test
-    public void testDeleteUserUnauthorized() {
+    public void testDeleteUser_Unauthorized() {
         // Arrange
+        String username = "user";
         UserDetails currentUser = mock(UserDetails.class);
         when(currentUser.getUsername()).thenReturn("otheruser");
 
         // Act
-        ResponseEntity<?> response = authController.deleteUser("user", currentUser);
+        ResponseEntity<?> response = authController.deleteUser(username, currentUser);
 
         // Assert
         assertEquals(ResponseEntity.badRequest().body("Error: You can only delete your own account."), response);
+        verify(userRepository, never()).delete(any(User.class));
+    }
+
+    @Test
+    public void testDeleteUser_NotFound() {
+        // Arrange
+        String username = "user";
+        UserDetails currentUser = mock(UserDetails.class);
+        when(currentUser.getUsername()).thenReturn(username);
+        when(userRepository.findByUsername(username)).thenReturn(Optional.empty());
+
+        // Act
+        ResponseEntity<?> response = authController.deleteUser(username, currentUser);
+
+        // Assert
+        assertEquals(ResponseEntity.badRequest().body("Error: User not found"), response);
         verify(userRepository, never()).delete(any(User.class));
     }
 }

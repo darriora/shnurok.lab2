@@ -1,5 +1,7 @@
 package ru.ssau.tk.shnurok.lab2.security;
 
+import java.util.Objects;
+
 public class JwtResponse {
 
     private String token;
@@ -17,4 +19,17 @@ public class JwtResponse {
     public void setToken(String token) {
         this.token = token;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof JwtResponse)) return false;
+        JwtResponse that = (JwtResponse) o;
+        return Objects.equals(token, that.token);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(token);
+}
 }
