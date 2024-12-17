@@ -15,7 +15,7 @@ class AbstractTabulatedFunctionTest {
         LinkedListTabulatedFunction function = new LinkedListTabulatedFunction(xValues, yValues);
 
         // Ожидаемая строка
-        String expectedString = "LinkedListTabulatedFunction size = 3\n[0.0; 0.0]\n[0.5; 0.25]\n[1.0; 1.0]";
+        String expectedString = "LinkedListTabulatedFunction size = 3\n[0.0; 0.0]\n[0.5; 0.25]\n[1.0; 1.0]\n";
 
         // Проверяем строковое представление
         assertEquals(expectedString, function.toString());
