@@ -11,7 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 public class MathFunctionDTO {
     private int id;
-    private String functionName;
+    private String mathFunctionName;
     private int count;
     private double xFrom;
     private double xTo;

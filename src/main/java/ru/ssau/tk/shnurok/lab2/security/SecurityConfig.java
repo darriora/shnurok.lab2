@@ -7,6 +7,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -42,17 +43,13 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf(csrf ->
-                        csrf.csrfTokenRepository(
-                                org.springframework.security.web.csrf.CookieCsrfTokenRepository.withHttpOnlyFalse()
-                        )
-                )
+        http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/auth/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/functions/search", "/function_points/function/*").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/functions/**", "/function_points/**").authenticated()
-                        .requestMatchers(HttpMethod.PUT, "/functions/**", "/function_points/**").authenticated()
-                        .requestMatchers(HttpMethod.DELETE, "/functions/**", "/function_points/**").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/lab/math-functions/list", "/lab/points/function/{functionId}").authenticated()
+                        .requestMatchers(HttpMethod.POST, "/lab/math-functions", "/lab/points").authenticated()
+                        .requestMatchers(HttpMethod.PATCH, "/lab/math-functions/{functionId:\\d+}", "/lab/points/{pointId:\\d+}").authenticated()
+                        .requestMatchers(HttpMethod.DELETE, "/lab/math-functions/{functionId}", "/lab/points/{pointId}").authenticated()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session

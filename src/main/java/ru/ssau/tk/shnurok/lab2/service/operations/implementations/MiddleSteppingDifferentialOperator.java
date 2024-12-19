@@ -1,7 +1,7 @@
-package ru.ssau.tk.shnurok.lab2.operations.implementations;
+package ru.ssau.tk.shnurok.lab2.service.operations.implementations;
 
 import ru.ssau.tk.shnurok.lab2.functions.coredefenitions.MathFunction;
-import ru.ssau.tk.shnurok.lab2.operations.abstractclasses.SteppingDifferentialOperator;
+import ru.ssau.tk.shnurok.lab2.service.operations.abstractclasses.SteppingDifferentialOperator;
 
 public class MiddleSteppingDifferentialOperator extends SteppingDifferentialOperator {
 

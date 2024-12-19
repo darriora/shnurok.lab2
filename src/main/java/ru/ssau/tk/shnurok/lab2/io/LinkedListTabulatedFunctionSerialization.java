@@ -2,7 +2,7 @@ package ru.ssau.tk.shnurok.lab2.io;
 
 import ru.ssau.tk.shnurok.lab2.functions.coredefenitions.TabulatedFunction;
 import ru.ssau.tk.shnurok.lab2.functions.realizations.LinkedListTabulatedFunction;
-import ru.ssau.tk.shnurok.lab2.operations.implementations.TabulatedDifferentialOperator;
+import ru.ssau.tk.shnurok.lab2.service.operations.implementations.TabulatedDifferentialOperator;
 
 import java.io.*;
 

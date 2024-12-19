@@ -2,6 +2,7 @@ package ru.ssau.tk.shnurok.lab2.operations.abstractclasses;
 
 import org.junit.jupiter.api.Test;
 import ru.ssau.tk.shnurok.lab2.functions.coredefenitions.MathFunction;
+import ru.ssau.tk.shnurok.lab2.service.operations.abstractclasses.SteppingDifferentialOperator;
 
 import static org.junit.jupiter.api.Assertions.*;
 

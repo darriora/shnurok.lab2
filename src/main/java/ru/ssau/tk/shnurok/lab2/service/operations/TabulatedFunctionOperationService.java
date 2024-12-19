@@ -1,4 +1,4 @@
-package ru.ssau.tk.shnurok.lab2.operations;
+package ru.ssau.tk.shnurok.lab2.service.operations;
 
 import ru.ssau.tk.shnurok.lab2.exeptions.InconsistentFunctionsException;
 import ru.ssau.tk.shnurok.lab2.functions.coredefenitions.TabulatedFunction;

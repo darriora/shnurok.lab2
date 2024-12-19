@@ -19,11 +19,12 @@ import ru.ssau.tk.shnurok.lab2.model.UserDetailsServiceImpl;
 import java.io.IOException;
 
 @Component
-@RequiredArgsConstructor
-@NoArgsConstructor(force = true)
 public class JwtAuthTokenFilter extends OncePerRequestFilter {
 
-    private final JwtUtils jwtUtils; // Объявите как final
+    @Autowired
+    private JwtUtils jwtUtils; // Объявите как final
+
+    @Autowired
     private UserDetailsServiceImpl userDetailsService; // Объявите как final
 
     @Override

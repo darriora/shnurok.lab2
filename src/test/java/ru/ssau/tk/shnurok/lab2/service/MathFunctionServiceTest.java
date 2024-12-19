@@ -44,13 +44,13 @@ public class MathFunctionServiceTest {
         List<MathFunctionDTO> result = mathFunctionService.findAllFunctions("example_function");
 
         assertEquals(1, result.size());
-        assertEquals("example_function", result.get(0).getFunctionName());
+        assertEquals("example_function", result.get(0).getMathFunctionName());
     }
 
     @Test
     public void testCreate() {
         MathFunctionDTO dto = new MathFunctionDTO();
-        dto.setFunctionName("new_function");
+        dto.setMathFunctionName("new_function");
         dto.setCount(5);
         dto.setXFrom(1.0);
         dto.setXTo(5.0);
@@ -61,7 +61,7 @@ public class MathFunctionServiceTest {
         MathFunctionDTO result = mathFunctionService.create(dto);
 
         assertNotNull(result);
-        assertEquals("new_function", result.getFunctionName());
+        assertEquals("new_function", result.getMathFunctionName());
     }
 
     @Test
@@ -75,14 +75,14 @@ public class MathFunctionServiceTest {
         MathFunctionDTO result = mathFunctionService.read(1);
 
         assertNotNull(result);
-        assertEquals("example_function", result.getFunctionName());
+        assertEquals("example_function", result.getMathFunctionName());
     }
 
     @Test
     public void testUpdate() {
         MathFunctionDTO dto = new MathFunctionDTO();
         dto.setId(1);
-        dto.setFunctionName("updated_function");
+        dto.setMathFunctionName("updated_function");
 
         MathFunctionEntity entity = MathFunctionMapper.functionDTOToFunctionEntity(dto);
         when(mathFunctionRepository.save(any(MathFunctionEntity.class))).thenReturn(entity);
@@ -90,7 +90,7 @@ public class MathFunctionServiceTest {
         MathFunctionDTO result = mathFunctionService.update(dto);
 
         assertNotNull(result);
-        assertEquals("updated_function", result.getFunctionName());
+        assertEquals("updated_function", result.getMathFunctionName());
     }
 
     @Test

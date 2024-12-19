@@ -2,7 +2,7 @@ package ru.ssau.tk.shnurok.lab2.concurrent;
 
 import ru.ssau.tk.shnurok.lab2.functions.coredefenitions.TabulatedFunction;
 import ru.ssau.tk.shnurok.lab2.functions.realizations.Point;
-import ru.ssau.tk.shnurok.lab2.operations.TabulatedFunctionOperationService;
+import ru.ssau.tk.shnurok.lab2.service.operations.TabulatedFunctionOperationService;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
