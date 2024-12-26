@@ -26,7 +26,7 @@ public class MathFunctionMapperTest {
 
         assertNotNull(dto);
         assertEquals(1, dto.getId());
-        assertEquals("example_function", dto.getFunctionName());
+        assertEquals("example_function", dto.getMathFunctionName());
         assertEquals(10, dto.getCount());
         assertEquals(0.0, dto.getXFrom());
         assertEquals(10.0, dto.getXTo());
@@ -41,7 +41,7 @@ public class MathFunctionMapperTest {
     public void testFunctionDTOToFunctionEntity_ValidDTO() {
         MathFunctionDTO dto = new MathFunctionDTO();
         dto.setId(1);
-        dto.setFunctionName("example_function");
+        dto.setMathFunctionName("example_function");
         dto.setCount(10);
         dto.setXFrom(0.0);
         dto.setXTo(10.0);

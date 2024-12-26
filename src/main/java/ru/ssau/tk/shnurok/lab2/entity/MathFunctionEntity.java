@@ -36,4 +36,7 @@ public class MathFunctionEntity {
     @OneToMany(mappedBy = "functionEntity", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PointEntity> points;
 
+    public void setFunctionName(String example) {
+
+    }
 }

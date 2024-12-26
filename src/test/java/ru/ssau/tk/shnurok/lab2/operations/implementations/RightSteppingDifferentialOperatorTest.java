@@ -2,7 +2,7 @@ package ru.ssau.tk.shnurok.lab2.operations.implementations;
 
 import org.junit.jupiter.api.Test;
 import ru.ssau.tk.shnurok.lab2.functions.coredefenitions.MathFunction;
-import ru.ssau.tk.shnurok.lab2.operations.implementations.RightSteppingDifferentialOperator;
+import ru.ssau.tk.shnurok.lab2.service.operations.implementations.RightSteppingDifferentialOperator;
 
 import static org.junit.jupiter.api.Assertions.*;
 

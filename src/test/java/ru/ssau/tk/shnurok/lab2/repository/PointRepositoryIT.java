@@ -30,7 +30,7 @@ public class PointRepositoryIT {
     public void setup() {
         MathFunctionEntity functionEntity = new MathFunctionEntity();
         functionEntity.setId(1);
-        //functionEntity.setFunctionName("example_function");
+        functionEntity.setFunctionName("example_function");
         functionEntity.setCount(10);
         functionEntity.setXFrom(0D);
         functionEntity.setXTo(10D);
@@ -51,6 +51,6 @@ public class PointRepositoryIT {
         List<PointEntity> points = pointRepository.findByFunctionEntity(functionEntity);
 
         assertEquals(1, points.size());
-        assertEquals(1, points.get(0).getId());
+        assertEquals(1, points.getFirst().getId());
     }
 }

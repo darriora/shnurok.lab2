@@ -14,10 +14,10 @@ import java.util.Date;
 public class JwtUtils {
     private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
 
-    @Value("secret")
+    @Value("${jwt.secret}")
     private String jwtSecret;
 
-    @Value("86400000")
+    @Value("${jwt.expirationMs}")
     private int jwtExpirationMs;
 
     public String generateJwtToken(UserDetails userDetails) {
@@ -31,16 +31,14 @@ public class JwtUtils {
 
 
     public String getUsernameFromJwtToken(String token) {
-        // Убедитесь, что ваш секретный ключ совпадает с тем, который использовался для подписи токена
-        String secretKey = "your-secret-key"; // Замените на ваш секретный ключ
-
         Claims claims = Jwts.parser()
-                .setSigningKey(secretKey)
+                .setSigningKey(jwtSecret)
                 .parseClaimsJws(token)
                 .getBody();
 
         return claims.getSubject(); // Предполагается, что имя пользователя - это subject токена
     }
+
     public boolean validateJwtToken(String token) {
         try {
             Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token);

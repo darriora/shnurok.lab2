@@ -17,7 +17,7 @@ public class MathFunctionDTOTest {
 
         // Act & Assert
         assertEquals(1, mathFunctionDTO.getId());
-        assertEquals("TestFunction", mathFunctionDTO.getFunctionName());
+        assertEquals("TestFunction", mathFunctionDTO.getMathFunctionName());
         assertEquals(2, mathFunctionDTO.getCount());
         assertEquals(0.0, mathFunctionDTO.getXFrom());
         assertEquals(10.0, mathFunctionDTO.getXTo());
@@ -31,7 +31,7 @@ public class MathFunctionDTOTest {
 
         // Act & Assert
         assertEquals(0, mathFunctionDTO.getId());
-        assertEquals(null, mathFunctionDTO.getFunctionName());
+        assertEquals(null, mathFunctionDTO.getMathFunctionName());
         assertEquals(0, mathFunctionDTO.getCount());
         assertEquals(0.0, mathFunctionDTO.getXFrom());
         assertEquals(0.0, mathFunctionDTO.getXTo());
@@ -46,7 +46,7 @@ public class MathFunctionDTOTest {
 
         // Act
         mathFunctionDTO.setId(1);
-        mathFunctionDTO.setFunctionName("TestFunction");
+        mathFunctionDTO.setMathFunctionName("TestFunction");
         mathFunctionDTO.setCount(3);
         mathFunctionDTO.setXFrom(0.0);
         mathFunctionDTO.setXTo(5.0);
@@ -54,7 +54,7 @@ public class MathFunctionDTOTest {
 
         // Assert
         assertEquals(1, mathFunctionDTO.getId());
-        assertEquals("TestFunction", mathFunctionDTO.getFunctionName());
+        assertEquals("TestFunction", mathFunctionDTO.getMathFunctionName());
         assertEquals(3, mathFunctionDTO.getCount());
         assertEquals(0.0, mathFunctionDTO.getXFrom());
         assertEquals(5.0, mathFunctionDTO.getXTo());
