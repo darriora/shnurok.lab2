@@ -1,17 +1,18 @@
 package ru.ssau.tk.shnurok.lab2.security;
 
-import org.springframework.security.core.Authentication;
-import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
-import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
-import ru.ssau.tk.shnurok.lab2.functions.factory.ArrayTabulatedFunctionFactory;
-
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
+import ru.ssau.tk.shnurok.lab2.functions.factory.ArrayTabulatedFunctionFactory;
+
 import java.io.IOException;
 
-public class LoginSuccessHandler  extends SavedRequestAwareAuthenticationSuccessHandler{
+
+public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
+
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request,
                                         HttpServletResponse response,
@@ -28,3 +29,4 @@ public class LoginSuccessHandler  extends SavedRequestAwareAuthenticationSuccess
         response.sendRedirect("/");
     }
 }
+

@@ -18,6 +18,8 @@ public class PointService {
     private final PointRepository pointRepository;
 
     private final MathFunctionRepository mathFunctionRepository;
+    
+    private final PointMapper pointMapper;
 
     public List<PointDTO> findAllPoints(int functionId) {
         MathFunctionEntity function = this.mathFunctionRepository.findById(functionId).orElse(null);
@@ -27,28 +29,28 @@ public class PointService {
 
         return this.pointRepository.findByFunctionEntity(function)
                 .stream()
-                .map(PointMapper::pointEntityToDTO)
+                .map(pointMapper::toDTO)
                 .collect(Collectors.toList());
     }
 
     public PointDTO create(PointDTO pointDTO) {
-        PointEntity point = PointMapper.pointDTOToPointEntity(pointDTO);
+        PointEntity point = pointMapper.toEntity(pointDTO);
         PointEntity newPoint = this.pointRepository.save(point);
 
-        return PointMapper.pointEntityToDTO(newPoint);
+        return pointMapper.toDTO(newPoint);
     }
 
     public PointDTO read(int id) {
         return this.pointRepository.findById(id)
-                .map(PointMapper::pointEntityToDTO)
+                .map(pointMapper::toDTO)
                 .orElse(null);
     }
 
     public PointDTO update(PointDTO pointDTO) {
-        PointEntity point = PointMapper.pointDTOToPointEntity(pointDTO);
+        PointEntity point = pointMapper.toEntity(pointDTO);
         PointEntity editedPoint = this.pointRepository.save(point);
 
-        return PointMapper.pointEntityToDTO(editedPoint);
+        return pointMapper.toDTO(editedPoint);
     }
 
     public void delete(int id) {

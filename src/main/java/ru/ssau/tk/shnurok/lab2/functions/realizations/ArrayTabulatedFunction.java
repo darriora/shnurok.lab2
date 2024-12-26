@@ -130,6 +130,16 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
     }
 
     @Override
+    public double[] getXValues() {
+        return getXValues();
+    }
+
+    @Override
+    public double[] getYValues() {
+        return getYValues();
+    }
+
+    @Override
     public void insert(double x, double y) {
         int index = indexOfX(x);
         if (index != -1) {

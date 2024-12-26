@@ -1,11 +1,13 @@
 package ru.ssau.tk.shnurok.lab2.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.util.List;
 
@@ -14,6 +16,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString(exclude = "points")
 public class MathFunctionEntity {
 
     @Id
@@ -34,9 +37,7 @@ public class MathFunctionEntity {
     private Double xTo;
 
     @OneToMany(mappedBy = "functionEntity", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<PointEntity> points;
 
-    public void setFunctionName(String example) {
-
-    }
 }

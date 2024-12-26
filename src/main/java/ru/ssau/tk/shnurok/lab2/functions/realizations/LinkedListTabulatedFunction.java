@@ -187,6 +187,16 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
     }
 
     @Override
+    public double[] getXValues() {
+        return getXValues();
+    }
+
+    @Override
+    public double[] getYValues() {
+        return getYValues();
+    }
+
+    @Override
     public void insert(double x, double y) {
         if (head == null) addNode(x,y);
         Node tmp = head;

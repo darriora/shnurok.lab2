@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import ru.ssau.tk.shnurok.lab2.functions.coredefenitions.TabulatedFunction;
 import ru.ssau.tk.shnurok.lab2.functions.factory.TabulatedFunctionFactory;
-import ru.ssau.tk.shnurok.lab2.operations.implementations.TabulatedDifferentialOperator;
+import ru.ssau.tk.shnurok.lab2.service.operations.implementations.TabulatedDifferentialOperator;
 import ru.ssau.tk.shnurok.lab2.repository.MathFunctionRepository;
 
 import org.springframework.stereotype.Controller;

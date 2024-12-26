@@ -1,35 +1,24 @@
 package ru.ssau.tk.shnurok.lab2.service;
 
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.springframework.stereotype.Component;
 import ru.ssau.tk.shnurok.lab2.dto.PointDTO;
+import ru.ssau.tk.shnurok.lab2.entity.MathFunctionEntity;
 import ru.ssau.tk.shnurok.lab2.entity.PointEntity;
+@Component
+@Mapper(componentModel = "spring")
+public interface PointMapper {
 
-public class PointMapper {
+    @Mapping(target = "functionEntity", ignore = true)
+    PointEntity toEntity(PointDTO pointDTO);
 
-    public static PointDTO pointEntityToDTO(PointEntity entity) {
-        if (entity == null) {
-            return null;
-        }
+    @Mapping(source = "functionEntity.id",target = "functionId")
+    PointDTO toDTO(PointEntity entity);
 
-        PointDTO dto = new PointDTO();
-        dto.setId(entity.getId());
-        dto.setFunctionId(entity.getFunctionEntity() != null ? entity.getFunctionEntity().getId() : 0);
-        dto.setXVal(entity.getXVal() != null ? entity.getXVal() : 0.0);
-        dto.setYVal(entity.getYVal() != null ? entity.getYVal() : 0.0);
-
-        return dto;
-    }
-
-    public static PointEntity pointDTOToPointEntity(PointDTO dto) {
-        if (dto == null) {
-            return null;
-        }
-
-        PointEntity entity = new PointEntity();
-        entity.setId(dto.getId());
-        entity.setXVal(dto.getXVal());
-        entity.setYVal(dto.getYVal());
-
+    default PointEntity toEntityWithFunction(PointDTO pointDTO, MathFunctionEntity mathFunctionEntity) {
+        PointEntity entity = toEntity(pointDTO);
+        entity.setFunctionEntity(mathFunctionEntity);
         return entity;
     }
-
 }

@@ -1,5 +1,6 @@
 package ru.ssau.tk.shnurok.lab2.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,8 +17,9 @@ public class PointEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "function_id", nullable = false)
+    @JsonBackReference
     private MathFunctionEntity functionEntity;
 
     @Column(name = "c_x_val")
