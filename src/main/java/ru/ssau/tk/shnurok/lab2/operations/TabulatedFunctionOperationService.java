@@ -17,7 +17,6 @@ public class TabulatedFunctionOperationService {
         this.factory = new ArrayTabulatedFunctionFactory();
     }
 
-
     private interface BiOperation{
         double apply(double u, double v);
     }
@@ -73,4 +72,6 @@ public class TabulatedFunctionOperationService {
     public TabulatedFunctionFactory getFactory(){
         return factory;
     }
+
+
 }

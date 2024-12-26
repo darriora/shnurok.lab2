@@ -1,0 +1,64 @@
+body {
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: 'TT Commons', sans-serif;
+}
+
+.registration-container {
+    position: relative;
+    background-color: #b2ebf2;
+    padding: 30px 40px;
+    border-radius: 20px;
+    text-align: center;
+    width: 450px;
+}
+
+.registration-container h1 {
+    color: #2e2e2e;
+    font-size: 28px;
+}
+
+/* Поля ввода */
+.registration-container input[type="text"],
+.registration-container input[type="password"] {
+    width: 380px;
+    padding: 15px;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 20px;
+    background-color: #ffffff;
+    font-size: 16px;
+}
+
+/* Стили для кнопки */
+.registration-container button {
+    margin-top: 10px;
+    width: 200px;
+    height: 45px;
+    background-color: #2e2e2e;
+    color: #ffffff;
+    border: none;
+    border-radius: 20px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Смена цвета кнопки при наведении */
+.registration-container button:hover {
+    background-color: #556555;
+}
+
+/* Стили для текста меток (label) */
+.registration-container label {
+    display: block;
+    text-align: left;
+    font-size: 14px;
+    margin-bottom: 5px;
+    color: #2e2e2e;
+}

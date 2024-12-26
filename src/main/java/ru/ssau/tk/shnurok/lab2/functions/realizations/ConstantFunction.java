@@ -6,6 +6,9 @@ import ru.ssau.tk.shnurok.lab2.functions.coredefenitions.MathFunction;
 public class ConstantFunction implements MathFunction {
 
     private final double constant;
+    public ConstantFunction() {
+        this.constant = 0.0; // Инициализация по умолчанию
+    }
 
     public ConstantFunction(double constant) {
         this.constant = constant;

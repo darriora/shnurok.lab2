@@ -4,7 +4,7 @@ import ru.ssau.tk.shnurok.lab2.functions.realizations.Point;
 
 import java.util.Iterator;
 
-public interface TabulatedFunction extends MathFunction, Iterable <Point>{
+public interface TabulatedFunction extends MathFunction, Iterable <Point>, Insertable, Removable{
     int getCount();
 
     double getX(int index);
@@ -17,6 +17,9 @@ public interface TabulatedFunction extends MathFunction, Iterable <Point>{
 
     double leftBound();
     double rightBound();
+
+    double [] getXValues();
+    double [] getYValues();
 
     Iterator<Point> iterator();
 

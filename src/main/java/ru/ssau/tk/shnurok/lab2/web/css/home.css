@@ -1,0 +1,235 @@
+body {
+    font-family: 'TT Commons', sans-serif;
+    background-color: #f0f0f0;
+    color: #2e2e2e;
+}
+
+.main-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 16px;
+}
+
+/* Верхняя строка */
+.top-row {
+    display: grid;
+    grid-template-columns: 35% 35% 30%;
+    gap: 16px;
+}
+
+/* Нижняя строка */
+.bottom-row {
+    display: grid;
+    grid-template-columns: 40% 30% 30%;
+    gap: 16px;
+}
+
+/* Общие стили для ячеек */
+.top-row > div, .bottom-row > div {
+    position: relative;
+    background-color: #ffffff;
+    padding: 20px;
+    text-align: left;
+    border-radius: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Секция "Базовые операции" */
+#basic-operations {
+    background-color: #d9ff6b;
+    padding: 20px;
+    font-size: 26px;
+    font-weight: bold;
+    border-radius: 25px;
+    transition: transform 0.3s;
+}
+
+#basic-operations:hover {
+    transform: scale(1.02);
+}
+
+#basic-operations button {
+    background-color: #4caf50; /* Зеленый */
+    color: white;
+    width: 160px;
+    height: 50px;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#basic-operations button:hover {
+    background-color: #388e3c; /* Темнее зеленый */
+}
+
+/* Секция "Создание сложной функции" */
+#complex-function {
+    background-color: #b2ebf2; /* Бледно-голубой */
+    padding: 20px;
+    font-size: 26px;
+    font-weight: bold;
+    border-radius: 25px;
+}
+
+#complex-function button {
+    background-color: #ff9800; /* Оранжевый */
+    color: white;
+    width: 160px;
+    height: 50px;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#complex-function button:hover {
+    background-color: #f57c00; /* Темнее оранжевый */
+}
+
+/* Секция "Построение графика" */
+#plot-graph {
+    background-color: #b2ebf2; /* Бледно-голубой */
+    padding: 20px;
+    font-size: 26px;
+    font-weight: bold;
+    border-radius: 25px;
+}
+
+#plot-graph button {
+    background-color: #4caf50; /* Зеленый */
+    color: white;
+    width: 160px;
+    height: 50px;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#plot-graph button:hover {
+    background-color: #388e3c; /* Темнее зеленый */
+}
+
+/* Секция "Дифференцирование функции" */
+#differentiate-function {
+    background-color: #c8e6c9; /* Светло-зеленый */
+    padding: 20px;
+    font-size: 26px;
+    font-weight: bold;
+    border-radius: 25px;
+}
+
+#differentiate-function button {
+    background-color: #ccff90; /* Светло-зеленый */
+    color: black;
+    width: 160px;
+    height: 50px;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#differentiate-function button:hover {
+    background-color: #aeea00; /* Темнее зеленый */
+}
+
+/* Секция "Настройки фабрики" */
+#factory-settings {
+    background-color: #c8e6c9; /* Светло-зеленый */
+    padding: 20px;
+    font-size: 26px;
+    font-weight: bold;
+    border-radius: 25px;
+}
+
+#factory-settings button {
+    background-color: #ccff90; /* Светло-зеленый */
+    color: black;
+    width: 160px;
+    height: 50px;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#factory-settings button:hover {
+    background-color: #aeea00; /* Темнее зеленый */
+}
+
+#settingsModal {
+    background-color: #2e2e2e;
+    border-radius: 25px;
+    border: none;
+    width: 680px;
+    height: 40px;
+    font-weight: bold;
+    font-size: 16px;
+    color: #ccff66;
+}
+
+#factoryType {
+    width: 250px;
+    height: 40px;
+    border-radius: 25px;
+    margin-left: 5px;
+    margin-right: 10px;
+    border: none;
+    background-color: #f0ffd4; /* Светло-зеленый фон */
+    font-size: 14px;
+    padding-left: 10px;
+    outline: none; /* Убираем обводку при фокусе */
+    box-shadow: none;
+    appearance: none; /* Убирает стандартную стрелку в современных браузерах */
+    background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 6"%3E%3Cpath d="M0 0l5 6 5-6z" fill="%23000000"/%3E%3C/svg%3E'); /* Своя стрелка */
+    background-repeat: no-repeat;
+    background-position: right 10px center; /* Стрелка справа по центру */
+    background-size: 11px;
+}
+
+#submit {
+    width: 110px;
+    height: 40px;
+    font-weight: bold;
+    font-size: 14px;
+    border-radius: 25px;
+    background-color: #ccff66;
+    border: none;
+    color: black;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#submit:hover {
+    background-color: #c4e65a;
+}
+
+#button {
+    width: 110px;
+    height: 40px;
+    font-weight: bold;
+    font-size: 14px;
+    border-radius: 25px;
+    background-color: #4caf50; /* Зеленый */
+    border: none;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#button:hover {
+    background-color: #388e3c; /* Темнее зеленый */
+}

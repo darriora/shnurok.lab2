@@ -1,0 +1,57 @@
+<style>
+    #errorForm {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: #ffcccb; /* Light red for warning */
+        padding: 20px;
+        border: none;
+        border-radius: 25px;
+        width: 350px;
+        height: 190px;
+        align-items: center;
+    }
+    #errorTitle {
+        font-family: 'TT Commons', sans-serif;
+        font-weight: bold;
+        font-size: 27px;
+        color: #2e2e2e; /* Dark text */
+        text-align: center;
+    }
+    #errorMessage {
+        text-align: center;
+        color: #2e2e2e; /* Dark text */
+    }
+    #errorForm button {
+        text-align: center;
+        font-size: 14px;
+        font-weight: bold;
+        font-family: 'TT Commons', sans-serif;
+        border-radius: 25px;
+        border: none;
+        width: 35%;
+        height: 35px;
+        color: white;
+        background-color: #00bcd4; /* Cyan */
+        margin-left: 114px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+    #errorForm button:hover {
+        background-color: #0097a7; /* Darker cyan */
+    }
+</style>
+<div id="errorForm">
+    <div id="errorContent"></div>
+    <p id="errorTitle">Эхтыж<br>ерорр...</p>
+    <p id="errorMessage"></p>
+    <button onclick="closeModal()">Закрыть</button>
+</div>
+<script>
+    function closeModal() {
+        document.getElementById("errorForm").style.display = "none";
+        window.location.href = window.location.pathname;
+    }
+</script>
