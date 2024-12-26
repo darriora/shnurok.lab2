@@ -28,8 +28,7 @@ import java.util.List;
 
         @PostMapping
         public ResponseEntity<MathFunctionDTO> create(@RequestBody MathFunctionDTO functionDTO) {
-            MathFunctionDTO createdFunction = this.mathFunctionService.create(functionDTO);
-
+            MathFunctionDTO createdFunction = mathFunctionService.create(functionDTO);
             return ResponseEntity.ok(createdFunction);
         }
 

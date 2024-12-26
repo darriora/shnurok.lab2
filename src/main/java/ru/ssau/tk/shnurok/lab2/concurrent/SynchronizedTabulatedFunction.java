@@ -14,6 +14,11 @@ public class SynchronizedTabulatedFunction implements TabulatedFunction {
         this.function = function;
     }
 
+    @Override
+    public void remove(int index) {
+
+    }
+
     public interface Operation<T> {
         T apply(SynchronizedTabulatedFunction function);
     }
@@ -65,6 +70,21 @@ public class SynchronizedTabulatedFunction implements TabulatedFunction {
     }
 
     @Override
+    public synchronized double[] getYValues() {
+        return function.getYValues();
+    }
+
+    @Override
+    public synchronized double[] getXValues() {
+        return function.getXValues();
+    }
+
+    @Override
+    public synchronized void insert(double x, double y) {
+        function.insert(x, y);
+    }
+
+    @Override
     public synchronized Iterator<Point> iterator() {
         synchronized (function) {
             Point[] points = TabulatedFunctionOperationService.asPoints(function);
@@ -85,7 +105,6 @@ public class SynchronizedTabulatedFunction implements TabulatedFunction {
                 }
             };
         }
-
     }
 
     @Override

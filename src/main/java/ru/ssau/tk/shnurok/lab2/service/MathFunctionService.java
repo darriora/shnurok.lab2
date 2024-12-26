@@ -1,7 +1,11 @@
 package ru.ssau.tk.shnurok.lab2.service;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.jpa.repository.EntityGraph;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.ssau.tk.shnurok.lab2.dto.MathFunctionDTO;
 import ru.ssau.tk.shnurok.lab2.entity.MathFunctionEntity;
 import ru.ssau.tk.shnurok.lab2.repository.MathFunctionRepository;
@@ -15,32 +19,66 @@ public class MathFunctionService {
 
     private final MathFunctionRepository mathFunctionRepository;
 
+    private final MathFunctionMapper mathFunctionMapper;
+
+    private final PointMapper pointMapper;
+
+    @EntityGraph(attributePaths = "points")
     public List<MathFunctionDTO> findAllFunctions(String functionType) {
-        return this.mathFunctionRepository.findByMathFunctionName(functionType)
-                .stream()
-                .map(MathFunctionMapper::functionEntityToDTO)
-                .collect(Collectors.toList());
+        if (functionType != null && !functionType.isBlank()) {
+            return this.mathFunctionRepository.findByMathFunctionName(functionType)
+                    .stream()
+                    .map(mathFunctionMapper::toDTO).collect(Collectors.toList());
+        } else {
+            return this.mathFunctionRepository.findAll()
+                    .stream()
+                    .map(mathFunctionMapper::toDTO).collect(Collectors.toList());
+        }
     }
 
-    public MathFunctionDTO create(MathFunctionDTO functionDTO) {
-        MathFunctionEntity functionEntity = MathFunctionMapper.functionDTOToFunctionEntity(functionDTO);
-        MathFunctionEntity newFunction = this.mathFunctionRepository.save(functionEntity);
+    @Transactional
+    public MathFunctionDTO update(MathFunctionDTO functionDTO) {
+        MathFunctionEntity functionEntity = mathFunctionRepository.findById(functionDTO.getId())
+                .orElseThrow(()-> new EntityNotFoundException("There are no function with that id: "+functionDTO.getId()));
 
-        return MathFunctionMapper.functionEntityToDTO(newFunction);
+        if(functionDTO.getMathFunctionName()!=null){
+            functionEntity.setMathFunctionName(functionDTO.getMathFunctionName());
+        }
+
+        if(0 != functionDTO.getXFrom()){
+            functionEntity.setXFrom(functionDTO.getXFrom());
+        }
+
+        if(functionDTO.getXTo() != 0){
+            functionEntity.setXTo(functionDTO.getXTo());
+        }
+
+        if(functionDTO.getPoints() != null){
+            functionEntity.getPoints().clear();
+            functionEntity.getPoints().addAll(
+                    functionDTO.getPoints().stream()
+                            .map(pointDTO ->pointMapper.toEntityWithFunction(pointDTO,functionEntity)).toList()
+            );
+        }
+
+        MathFunctionEntity newFunction = mathFunctionRepository.save(functionEntity);
+
+        return mathFunctionMapper.toDTO(newFunction);
     }
 
     public MathFunctionDTO read(int id) {
         return this.mathFunctionRepository
                 .findById(id)
-                .map(MathFunctionMapper::functionEntityToDTO)
+                .map(mathFunctionMapper::toDTO)
                 .orElse(null);
     }
 
-    public MathFunctionDTO update(MathFunctionDTO functionDTO) {
-        MathFunctionEntity functionEntity = MathFunctionMapper.functionDTOToFunctionEntity(functionDTO);
+    @Transactional
+    public MathFunctionDTO create(MathFunctionDTO functionDTO) {
+        MathFunctionEntity functionEntity = mathFunctionMapper.toEntity(functionDTO);
         MathFunctionEntity editedFunction = this.mathFunctionRepository.save(functionEntity);
 
-        return MathFunctionMapper.functionEntityToDTO(editedFunction);
+        return mathFunctionMapper.toDTO(editedFunction);
     }
 
     public void delete(int id) {

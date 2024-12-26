@@ -77,7 +77,7 @@ public class LoadAndSaveControllers {
         }
 
         MathFunctionDTO dto = new MathFunctionDTO();
-        dto.setFunctionName(funcName);
+        dto.setMathFunctionName(funcName);
         dto.setXTo(func.rightBound());
         dto.setXFrom(func.leftBound());
         dto.setCount(func.getCount());

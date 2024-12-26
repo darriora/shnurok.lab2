@@ -19,3 +19,7 @@ jwt:
 
 server:
   port: 8080
+
+logging:
+  level:
+    sql: info

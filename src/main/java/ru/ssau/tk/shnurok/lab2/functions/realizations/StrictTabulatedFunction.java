@@ -42,6 +42,16 @@ public class StrictTabulatedFunction implements TabulatedFunction {
     }
 
     @Override
+    public double[] getXValues() {
+        return getXValues();
+    }
+
+    @Override
+    public double[] getYValues() {
+        return getYValues();
+    }
+
+    @Override
     public int indexOfX(double x) {
         return function.indexOfX(x);
     }
@@ -63,5 +73,15 @@ public class StrictTabulatedFunction implements TabulatedFunction {
     @Override
     public Iterator<Point> iterator() {
         return function.iterator();
+    }
+
+    @Override
+    public void insert(double x, double y) {
+
+    }
+
+    @Override
+    public void remove(int index) {
+
     }
 }

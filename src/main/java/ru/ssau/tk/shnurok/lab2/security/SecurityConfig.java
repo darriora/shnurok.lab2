@@ -31,8 +31,11 @@ public class SecurityConfig {
     @Bean
     public DaoAuthenticationProvider authenticationProvider(UserDetailsServiceImpl userDetailsService) {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+
         authProvider.setUserDetailsService(userDetailsService);
         authProvider.setPasswordEncoder(passwordEncoder());
+
+
         return authProvider;
     }
 
@@ -42,22 +45,27 @@ public class SecurityConfig {
     }
 
     @Bean
+    public LoginSuccessHandler loginSuccessHandler() {
+        return new LoginSuccessHandler();
+    }
+
+    @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf(AbstractHttpConfigurer::disable)
+        return http
+                .csrf(AbstractHttpConfigurer::disable) // Отключение CSRF-защиты
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/auth/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/lab/math-functions/list", "/lab/points/function/{functionId}").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/lab/math-functions/list", "/lab/points/function/{functionId}").permitAll()
                         .requestMatchers(HttpMethod.POST, "/lab/math-functions", "/lab/points").authenticated()
                         .requestMatchers(HttpMethod.PATCH, "/lab/math-functions/{functionId:\\d+}", "/lab/points/{pointId:\\d+}").authenticated()
                         .requestMatchers(HttpMethod.DELETE, "/lab/math-functions/{functionId}", "/lab/points/{pointId}").authenticated()
                         .anyRequest().authenticated()
                 )
-                .sessionManagement(session -> session
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                )
+                .sessionManagement(session ->
+                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider(null))
-                .addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
-
-        return http.build();
+                .addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class)
+                .build();
     }
+
 }

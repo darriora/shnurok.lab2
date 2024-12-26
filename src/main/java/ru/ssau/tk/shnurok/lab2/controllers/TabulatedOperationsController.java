@@ -6,12 +6,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.thymeleaf.exceptions.TemplateInputException;
+
 
 import jakarta.servlet.http.HttpSession;
 import ru.ssau.tk.shnurok.lab2.functions.coredefenitions.TabulatedFunction;
 import ru.ssau.tk.shnurok.lab2.functions.factory.TabulatedFunctionFactory;
-import ru.ssau.tk.shnurok.lab2.operations.TabulatedFunctionOperationService;
+import ru.ssau.tk.shnurok.lab2.service.operations.TabulatedFunctionOperationService;
 import ru.ssau.tk.shnurok.lab2.repository.MathFunctionRepository;
 
 import java.util.List;
